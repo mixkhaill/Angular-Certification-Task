@@ -19,13 +19,13 @@ export class AppComponent {
     constructor(private quizService: QuizService) {}
 
     ngOnInit(): void {
-        this.loadCategories();
-        this.loadDifficulties();
+      this.loadCategories();
+      this.loadDifficulties();
     }
 
-    loadCategories() {
-      this.quizService.getCategories().subscribe((data) => {
-          this.categories = data.trivia_categories;
+  loadCategories() {
+    this.quizService.getCategories().subscribe((data) => {
+    this.categories = data.trivia_categories;
       });
   }
     loadDifficulties() {
@@ -39,7 +39,6 @@ export class AppComponent {
       this.quizService.getQuestions(category, difficulty).subscribe((data) => {
         this.questions = data.results
         this.quizService.setGeneratedQuiz(this.questions);
-        console.log(this.questions)
       })
     } 
    }
