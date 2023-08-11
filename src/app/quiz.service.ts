@@ -28,8 +28,8 @@ import { Category } from "./category.interface"
     }
     setGeneratedQuiz(questions: Question[]): void {
       this.generatedQuiz.next(questions);
-  }
-      getGeneratedQuestions(): Observable<Question[]> {
-        return this.generatedQuiz.asObservable();
+    }
+    getGeneratedQuestions(): Observable<Question[]> {
+      return this.generatedQuiz.asObservable();
     }
   }
