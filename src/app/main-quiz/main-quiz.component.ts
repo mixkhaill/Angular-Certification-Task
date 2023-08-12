@@ -37,8 +37,8 @@ export class MainQuizComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectAnswer(qIndex: number, answer: string): void {
-    this.selectedAnswers.set(qIndex, answer);
+  selectAnswer(qI: number, answer: string): void {
+    this.selectedAnswers.set(qI, answer);
   }
 
   isAllAnswersSelected(): boolean {
