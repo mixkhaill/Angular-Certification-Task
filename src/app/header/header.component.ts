@@ -1,19 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuizService } from '../quiz.service';
 import { Question } from '../question.interface';
 import { Category } from '../category.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   questions: Question[] = []
   categories: Category[] = [];
   difficulties: string[] = [];
   selectedCategory: number | null = null;
   selectedDifficulty: string | null = null;
+  private quizSubscription: Subscription | undefined;
   constructor(private quizService: QuizService) {}
 
   ngOnInit(): void {
@@ -21,16 +23,16 @@ export class HeaderComponent {
     this.loadDifficulties();
   }
 
-loadCategories() {
-  this.quizService.getCategories().subscribe((data) => {
+  loadCategories(): void {
+  this.quizSubscription = this.quizService.getCategories().subscribe((data) => {
   this.categories = data.trivia_categories;
     });
 }
-  loadDifficulties() {
+  loadDifficulties(): void {
   this.difficulties = this.quizService.getDifficulties();
 }
 
- onCreateQuiz() {
+ onCreateQuiz(): void {
   let category = this.selectedCategory
   let difficulty = this.selectedDifficulty
   if(category !== null && difficulty !== null) {
@@ -39,5 +41,8 @@ loadCategories() {
       this.quizService.setGeneratedQuiz(this.questions);
     })
   } 
+ }
+ ngOnDestroy(): void {
+   this.quizSubscription?.unsubscribe();
  }
 }

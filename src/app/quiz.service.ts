@@ -20,8 +20,8 @@ import { Category } from "./category.interface"
       const url = `${this.apiUrl}&category=${category}&difficulty=${difficulty}`;
       return this.http.get<{ results: Question[] }>(url);
     }
-    getCategories(): Observable<any> {
-      return this.http.get(this.categoryUrl);
+    getCategories(): Observable<{ trivia_categories: Category[] }> {
+      return this.http.get<{ trivia_categories: Category[] }>(this.categoryUrl);
     }
     getDifficulties(): string[] {
       return this.difficulties; 

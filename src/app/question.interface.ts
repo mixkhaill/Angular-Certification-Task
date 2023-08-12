@@ -7,4 +7,5 @@ export interface Question {
     incorrect_answers: string[];
     answers: string[];
     selectedAnswer: string | null;
+    userAnswer: string | number;
 }
