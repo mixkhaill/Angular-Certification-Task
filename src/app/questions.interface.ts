@@ -8,4 +8,8 @@ export interface Question {
     answers: string[];
     selectedAnswer: string | null;
     userAnswer: string | number;
+} 
+
+export interface Results {
+    results: Question[]
 }

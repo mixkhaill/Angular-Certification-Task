@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuizService } from '../quiz.service';
-import { Question } from '../question.interface';
-import { Category } from '../category.interface';
+import { Question } from '../questions.interface';
+import { Category } from '../categories.interface';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Question } from '../question.interface';
+import { Question } from '../questions.interface';
 import { Subscription } from 'rxjs';
 
 @Component({

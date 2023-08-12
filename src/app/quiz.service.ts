@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
-import { Question } from "./question.interface";
-import { Category } from "./category.interface"
+import { Question, Results } from "./questions.interface";
+import { Category, Categories } from "./categories.interface"
 
 @Injectable({
     providedIn: "root",
@@ -16,11 +16,11 @@ import { Category } from "./category.interface"
 
     constructor(private http: HttpClient) {}
     
-    getQuestions(category: number, difficulty: string): Observable<{ results: Question[] }> {
+    getQuestions(category: number, difficulty: string): Observable<Results> {
       const url = `${this.apiUrl}&category=${category}&difficulty=${difficulty}`;
       return this.http.get<{ results: Question[] }>(url);
     }
-    getCategories(): Observable<{ trivia_categories: Category[] }> {
+    getCategories(): Observable<Categories> {
       return this.http.get<{ trivia_categories: Category[] }>(this.categoryUrl);
     }
     getDifficulties(): string[] {
