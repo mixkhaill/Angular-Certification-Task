@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { ResultsComponent } from './results/results.component';
 import { MainQuizComponent } from './main-quiz/main-quiz.component';
 import { AppRoutingModule } from './app-routing.module';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ResultsComponent,
     MainQuizComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
