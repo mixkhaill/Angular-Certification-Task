@@ -17,10 +17,10 @@
   </div>
   <p class="text-center mt-10 py-2 px-4 text-white" 
   [ngClass]="{
-    'bg-red-600': correctAnswersCount < 2,
-    'bg-yellow-500': correctAnswersCount >= 2 && correctAnswersCount <= 3,
-    'bg-green-500': correctAnswersCount >= 4
-}">Your score {{correctAnswersCount}} of {{questions.length}}</p>
+    'bg-red-600': correctAnswers < 2,
+    'bg-yellow-500': correctAnswers >= 2 && correctAnswers <= 3,
+    'bg-green-500': correctAnswers >= 4
+}">Your score {{correctAnswers}} of {{questions.length}}</p>
   <button type="button" class="flex text-white bg-gray-500 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-semibold rounded mt-5 w-full">
     <a routerLink="/" class="py-2 px-4 w-full h-full">
       Create new quiz

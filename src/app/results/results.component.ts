@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import { Question } from '../questions.interface';
+import { Question } from '../shared/questions.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class ResultsComponent implements OnInit, OnDestroy {
   questions: Question[] = [];
-  correctAnswersCount: number = 0; 
+  correctAnswers: number = 0; 
   private quizSubscription: Subscription | undefined;
 
   constructor(private route: ActivatedRoute) { }
@@ -26,14 +26,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
         userAnswers.forEach(([questionIndex, answer]) => {
           const question = questions[questionIndex];
           question.userAnswer = answer;
+          console.log(question)
           if (question.userAnswer === question.correct_answer) {
-            this.correctAnswersCount++; 
+            this.correctAnswers++; 
           }
         });
 
         this.questions = questions;
-        console.log("results: ", this.questions);
-        console.log("correctAnswersCount: ", this.correctAnswersCount);
       }
     });
   }

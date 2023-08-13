@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Question } from '../questions.interface';
-import { QuizService } from '../quiz.service';
+import { Question } from '../shared/questions.model';
+import { QuizService } from '../shared/quiz.service';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from "rxjs";
+import { Subscription } from "rxjs";
 
 
 @Component({
@@ -42,7 +42,7 @@ export class MainQuizComponent implements OnInit, OnDestroy {
   }
 
   isAllAnswersSelected(): boolean {
-    return this.questions.every((_, qIndex) => this.selectedAnswers.has(qIndex));
+    return this.questions.every((_, qI) => this.selectedAnswers.has(qI));
   } 
 
   onSubmit(): void {
