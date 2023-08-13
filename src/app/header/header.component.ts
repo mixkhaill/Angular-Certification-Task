@@ -39,6 +39,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.quizService.getQuestions(category, difficulty).subscribe((data) => {
       this.questions = data.results
       this.quizService.setGeneratedQuiz(this.questions);
+      console.log(this.questions)
     })
   } 
  }

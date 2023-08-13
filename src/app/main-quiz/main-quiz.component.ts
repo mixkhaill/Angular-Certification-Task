@@ -45,7 +45,7 @@ export class MainQuizComponent implements OnInit, OnDestroy {
     return this.questions.every((_, qIndex) => this.selectedAnswers.has(qIndex));
   } 
 
-  onSubmit() {
+  onSubmit(): void {
     this.router.navigate(['/results'], {
       queryParams: {
         questions: JSON.stringify(this.questions),
@@ -55,8 +55,6 @@ export class MainQuizComponent implements OnInit, OnDestroy {
   } 
   
   ngOnDestroy(): void {
-    
       this.quizSubscription?.unsubscribe();
-    
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { Question } from '../questions.interface';
 import { Subscription } from 'rxjs';
 
@@ -10,11 +10,13 @@ import { Subscription } from 'rxjs';
 })
 export class ResultsComponent implements OnInit, OnDestroy {
   questions: Question[] = [];
+  correctAnswersCount: number = 0; 
   private quizSubscription: Subscription | undefined;
-  constructor(private route: ActivatedRoute, private router: Router) { }
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-   this.quizSubscription = this.route.queryParams.subscribe(params => {
+    this.quizSubscription = this.route.queryParams.subscribe(params => {
       if (params['questions'] && params['userAnswers']) {
         const questionsJson = params['questions'];
         const userAnswersJson = params['userAnswers'];
@@ -22,15 +24,21 @@ export class ResultsComponent implements OnInit, OnDestroy {
         const userAnswers: [number, string][] = JSON.parse(userAnswersJson);
 
         userAnswers.forEach(([questionIndex, answer]) => {
-          questions[questionIndex].userAnswer = answer;
+          const question = questions[questionIndex];
+          question.userAnswer = answer;
+          if (question.userAnswer === question.correct_answer) {
+            this.correctAnswersCount++; 
+          }
         });
 
         this.questions = questions;
-        console.log("results: ", this.questions)
+        console.log("results: ", this.questions);
+        console.log("correctAnswersCount: ", this.correctAnswersCount);
       }
     });
   }
+
   ngOnDestroy() {
-    this.quizSubscription?.unsubscribe()
+    this.quizSubscription?.unsubscribe();
   }
 }
