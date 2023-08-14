@@ -47,12 +47,11 @@ export class MainQuizComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    this.router.navigate(['/results'], {
-      queryParams: {
-        questions: JSON.stringify(this.questions),
-        userAnswers: JSON.stringify(Array.from(this.selectedAnswers.entries())),
-      },
-    });
+    const userAnswers: [number, string][] = Array.from(
+      this.selectedAnswers.entries()
+    );
+    this.quizService.setUserAnswers(userAnswers);
+    this.router.navigate(['/results']);
   }
 
   ngOnDestroy(): void {

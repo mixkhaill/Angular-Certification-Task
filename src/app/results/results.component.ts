@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Question } from '../shared/questions.model';
 import { Subscription } from 'rxjs';
+import { QuizService } from '../shared/quiz.service';
 
 @Component({
   selector: 'app-results',
@@ -13,29 +14,31 @@ export class ResultsComponent implements OnInit, OnDestroy {
   correctAnswers: number = 0;
   private quizSubscription!: Subscription;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private quizService: QuizService, private router: Router) {}
 
   ngOnInit() {
-    this.quizSubscription = this.route.queryParams.subscribe((params) => {
-      if (params['questions'] && params['userAnswers']) {
-        const questionsJson: string = params['questions'];
-        const userAnswersJson: string = params['userAnswers'];
-        const questions: Question[] = JSON.parse(questionsJson);
-        const userAnswers: [number, string][] = JSON.parse(userAnswersJson);
-
-        userAnswers.forEach(([questionIndex, answer]) => {
-          const question = questions[questionIndex];
-          question.userAnswer = answer;
-          if (question.userAnswer === question.correct_answer) {
-            this.correctAnswers++;
-          }
-        });
-        console.log('questions: ', questions);
-        console.log('user Answers: ', userAnswers);
-
+    this.quizSubscription = this.quizService
+      .getGeneratedQuestions()
+      .subscribe((questions) => {
         this.questions = questions;
-      }
-    });
+        this.quizService.getUserAnswers().subscribe((userAnswers) => {
+          userAnswers.forEach(([questionIndex, answer]) => {
+            const question = this.questions[questionIndex];
+            question.userAnswer = answer;
+            if (question.userAnswer === question.correct_answer) {
+              this.correctAnswers++;
+            }
+          });
+        });
+      });
+    if (this.questions.length === 0) {
+      this.router.navigate(['/']);
+    }
+  }
+
+  createNewQuiz(): void {
+    this.quizService.clearGeneratedQuiz();
+    this.router.navigateByUrl('/');
   }
 
   ngOnDestroy() {
