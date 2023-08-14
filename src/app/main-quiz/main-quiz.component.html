@@ -16,12 +16,11 @@
       </div>
     </div>
   </div>
-  <ng-container *ngIf="questions.length === 5 && isAllAnswersSelected()">
-    <button
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-      (click)="onSubmit()"
-    >
-      Submit
-    </button>
-  </ng-container>
+  <button
+    *ngIf="questions.length === 5 && isAllAnswersSelected()"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+    (click)="onSubmit()"
+  >
+    Submit
+  </button>
 </div>
