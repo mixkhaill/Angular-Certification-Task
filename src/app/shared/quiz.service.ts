@@ -18,10 +18,11 @@ export class QuizService {
 
   getQuestions(category: number, difficulty: string): Observable<Results> {
     const url = `${this.apiUrl}&category=${category}&difficulty=${difficulty}`;
+    console.log(this.generatedQuiz);
     return this.http.get<Results>(url);
   }
   getCategories(): Observable<Categories> {
-    return this.http.get<{ trivia_categories: Category[] }>(this.categoryUrl);
+    return this.http.get<Categories>(this.categoryUrl);
   }
   getDifficulties(): string[] {
     return this.difficulties;
